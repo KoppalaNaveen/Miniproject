@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SQUARE2SANCTUARY</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .auth-container {
+            width: 100%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            padding: 40px 30px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .auth-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 100%; }
+            100% { left: 100%; }
+        }
+        
+        .center-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #2446c7;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            animation: titleAnimation 1.5s ease;
+        }
+        
+        @keyframes titleAnimation {
+            0% { letter-spacing: 10px; opacity: 0; }
+            100% { letter-spacing: normal; opacity: 1; }
+        }
+        
+        .center-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #2446c7, #9f21ee);
+            border-radius: 2px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+            animation: formSlide 0.5s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        .form-group:nth-child(1) { animation-delay: 0.2s; }
+        .form-group:nth-child(2) { animation-delay: 0.3s; }
+        .form-group:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes formSlide {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            color: #222;
+            padding-left: 5px;
+        }
+        
+        .form-group input {
+            padding: 15px;
+            width: 100%;
+            border-radius: 10px;
+            border: 2px solid #d0d5e2;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .form-group input:focus {
+            border-color: #2446c7;
+            box-shadow: 0 0 15px rgba(36, 70, 199, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .form-group i {
+            position: absolute;
+            right: 15px;
+            top: 42px;
+            color: #2446c7;
+        }
+        
+        .auth-btn {
+            width: 100%;
+            padding: 16px;
+            margin-top: 25px;
+            background: linear-gradient(90deg, #2446c7, #9f21ee);
+            color: #fff;
+            font-size: 1.14rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: btnPulse 2s infinite;
+        }
+        
+        @keyframes btnPulse {
+            0% { box-shadow: 0 0 0 0 rgba(36, 70, 199, 0.5); }
+            70% { box-shadow: 0 0 0 10px rgba(36, 70, 199, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(36, 70, 199, 0); }
+        }
+        
+        .auth-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(36, 70, 199, 0.3);
+        }
+        
+        .auth-btn:active {
+            transform: translateY(0);
+        }
+        
+        .auth-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        
+        .auth-btn:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+        
+        @keyframes ripple {
+            0% { transform: scale(0, 0); opacity: 0.5; }
+            20% { transform: scale(50, 50); opacity: 0.3; }
+            100% { transform: scale(100, 100); opacity: 0; }
+        }
+        
+        .floating-icons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .floating-icons div {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: rgba(36, 70, 199, 0.1);
+            border-radius: 50%;
+            animation: float 15s linear infinite;
+        }
+        
+        .floating-icons div:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-duration: 15s;
+            animation-delay: 0s;
+        }
+        
+        .floating-icons div:nth-child(2) {
+            top: 60%;
+            left: 80%;
+            animation-duration: 18s;
+            animation-delay: 2s;
+        }
+        
+        .floating-icons div:nth-child(3) {
+            top: 40%;
+            left: 70%;
+            animation-duration: 20s;
+            animation-delay: 4s;
+        }
+        
+        .floating-icons div:nth-child(4) {
+            top: 70%;
+            left: 20%;
+            animation-duration: 16s;
+            animation-delay: 1s;
+        }
+        
+        .floating-icons div:nth-child(5) {
+            top: 30%;
+            left: 60%;
+            animation-duration: 19s;
+            animation-delay: 3s;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
+        }
+        
+        .guest-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #555;
+            font-size: 0.96rem;
+        }
+        
+        .guest-link button {
+            background: none;
+            border: none;
+            color: #183df3;
+            font-weight: 600;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: inherit;
+        }
+        
+        .error-message {
+            color: #d50f19;
+            font-size: 0.99em;
+            padding: 8px;
+            background: #fff3f5;
+            border-left: 3px solid #d50f19;
+            border-radius: 7px;
+            margin: 6px 0 0 0;
+            animation: shake 0.5s;
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        /* Home page styles */
+        .generator-container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            margin: 40px auto;
+            padding: 40px;
+            text-align: center;
+            display: none;
+            animation: scaleIn 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .generator-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #2446c7, #9f21ee);
+            animation: borderGrow 1s ease-out;
+        }
+        
+        @keyframes borderGrow {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        .user-info {
+            text-align: right;
+            margin-bottom: 30px;
+            animation: slideDown 0.5s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .user-info span {
+            padding: 8px 15px;
+            border-radius: 20px;
+            background: linear-gradient(90deg, #2446c7, #9f21ee);
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(36, 70, 199, 0.2);
+        }
+        
+        .logout-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-left: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background: #ff6b81;
+            transform: translateY(-2px);
+        }
+        
+        .generator-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #2446c7;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+            animation: titleAnimation 1s ease;
+        }
+        
+        .generator-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #2446cc, #9f21ee);
+            border-radius: 2px;
+        }
+        
+        .feature-tags {
+            margin: 25px 0 40px 0;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .feature-tag {
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-size: 1rem;
+            background: linear-gradient(90deg, #cfddfa, #e6eefd);
+            color: #3518f3;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(53, 24, 243, 0.15);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .feature-tag:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(53, 24, 243, 0.2);
+        }
+        
+        .card-section {
+            background: #fff;
+            border-radius: 15px;
+            margin: 0 auto 30px auto;
+            box-shadow: 0 5px 20px rgba(99, 110, 180, 0.1);
+            text-align: left;
+            padding: 25px;
+            max-width: 600px;
+            border-left: 4px solid #2446c7;
+            animation: slideUp 0.5s ease-out;
+            animation-fill-mode: both;
+        }
+        
+        .card-section:nth-child(1) { animation-delay: 0.2s; }
+        .card-section:nth-child(2) { animation-delay: 0.3s; }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-title {
+            color: #3723ed;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-section label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 8px;
+            color: #444;
+        }
+        
+        .card-section input, .card-section select {
+            margin-top: 10px;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #cad4f1;
+            font-size: 1.05rem;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .card-section input:focus, .card-section select:focus {
+            border-color: #2446c7;
+            box-shadow: 0 0 15px rgba(36, 70, 199, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .gen-btn {
+            margin: 30px auto 0 auto;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            background: linear-gradient(90deg, #2446c7, #9f21ee);
+            color: #fff;
+            border: none;
+            box-shadow: 0 5px 20px rgba(58, 76, 212, 0.25);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .gen-btn:hover {
+            background: linear-gradient(90deg, #9f21ee, #2446c7);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(58, 76, 212, 0.35);
+        }
+        
+        .loading-spinner {
+            border: 4px solid #f0f2f6;
+            border-radius: 50%;
+            border-top: 4px solid #3a4cd4;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 30px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .result-container {
+            margin: 40px auto 0 auto;
+            max-width: 700px;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .plan-image {
+            width: 100%;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: 0 5px 25px rgba(50, 60, 110, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .plan-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(50, 60, 110, 0.2);
+        }
+        
+        .plan-details {
+            margin-top: 15px;
+            font-size: 1.1rem;
+            color: #444;
+        }
+        
+        .plan-features {
+            margin: 20px 0;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .plan-feature {
+            background: #e8f4fd;
+            color: #0b5c9e;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 3px 10px rgba(11, 92, 158, 0.1);
+        }
+        
+        .plan-actions {
+            margin-top: 25px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .plan-btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .view-btn {
+            background: #2446c7;
+        }
+        
+        .view-btn:hover {
+            background: #1460e7;
+            transform: translateY(-2px);
+        }
+        
+        .download-btn {
+            background: #27ae60;
+        }
+        
+        .download-btn:hover {
+            background: #2ecc71;
+            transform: translateY(-2px);
+        }
+        
+        /* NIVASA AI Chatbot Styles */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+        
+        .chatbot-toggle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2446c7, #9f21ee);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* UPDATED: Chatbot window is now a full-screen modal */
+        .chatbot-window {
+            display: none; /* Hidden by default, shown with .open class */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 1001; /* Ensure it's on top of the toggle button */
+            flex-direction: column;
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        .chatbot-window.open {
+            display: flex;
+        }
+        
+        .chatbot-header {
+            background: linear-gradient(135deg, #2446c7, #9f21ee);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chatbot-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        
+        .chatbot-header-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .chatbot-clear, .chatbot-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.4rem;
+            padding: 0;
+        }
+        
+        .chatbot-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f9f9f9;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            max-width: 800px; /* Improve readability on wide screens */
+        }
+        .message.bot { margin-right: auto; }
+        .message.user { margin-left: auto; }
+
+        .message.bot {
+            justify-content: flex-start;
+        }
+        
+        .message.user {
+            justify-content: flex-end;
+        }
+        
+        .message-content {
+            max-width: 100%; /* Let the .message container control width */
+            padding: 12px 18px;
+            border-radius: 18px;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .bot .message-content {
+            background: #f1f1f1;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .user .message-content {
+            background: #2446c7;
+            color: white;
+        }
+        
+        .chatbot-input {
+            display: flex;
+            padding: 15px 20px;
+            border-top: 1px solid #e0e0e0;
+            background: #fff;
+        }
+        
+        .chatbot-input input {
+            flex: 1;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            font-size: 1rem;
+        }
+        
+        .chatbot-input button {
+            margin-left: 10px;
+            background: #2446c7;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 0 20px;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            padding: 10px;
+        }
+        
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: #ccc;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typing 1s infinite ease-in-out;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .auth-container, .generator-container {
+                max-width: 90%;
+                padding: 30px 20px;
+                margin: 20px auto;
+            }
+            
+            .center-title, .generator-title {
+                font-size: 2rem;
+            }
+            
+            .feature-tags {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .plan-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .plan-btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .chatbot-container {
+                bottom: 10px;
+                left: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-icons">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+
+    <div id="authSection" class="auth-container">
+        <h1 class="center-title">SQUARE2SANCTUARY</h1>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="loginEmail"><i class="fas fa-envelope"></i> Email</label>
+                <input type="email" id="loginEmail" placeholder="Enter your email" autocomplete="off" />
+                <div class="error-message" id="loginEmailError" style="display:none"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="loginPassword"><i class="fas fa-lock"></i> Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password" autocomplete="off" />
+                <div class="error-message" id="loginPasswordError" style="display:none"></div>
+            </div>
+            
+            <button class="auth-btn" type="button" id="loginBtn">
+                <i class="fas fa-sign-in-alt"></i> Login / Create Account
+            </button>
+            
+            <div class="guest-link">
+                <button type="button" id="skipAuthBtn">Continue as Guest</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="homeSection" class="generator-container">
+        <div class="user-info">
+            <span id="userInfo">Guest User</span>
+            <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+        
+        <h1 class="generator-title">SQUARE2SANCTUARY</h1>
+        
+        <div class="feature-tags">
+            <span class="feature-tag"><i class="fas fa-magic"></i> AI-Powered</span>
+            <span class="feature-tag"><i class="fas fa-home"></i> Custom Plans</span>
+            <span class="feature-tag"><i class="fas fa-bolt"></i> Instant Results</span>
+        </div>
+        
+        <div class="card-section">
+            <div class="section-title"><i class="fas fa-ruler-combined"></i> Enter Square Footage</div>
+            <label for="squareFootageInput">Square Feet</label>
+            <input type="number" id="squareFootageInput" placeholder="e.g., 600" min="400" max="3000" />
+        </div>
+        
+        <div class="card-section">
+            <div class="section-title"><i class="fas fa-bed"></i> BHK Type</div>
+            <select id="bhkDropdown">
+                <option value="1" selected>1 BHK</option>
+                <option value="2">2 BHK</option>
+                <option value="3">3 BHK</option>
+            </select>
+        </div>
+        
+        <button class="gen-btn" id="generateBtn"><i class="fas fa-bolt"></i> Generate House Plans</button>
+        
+        <div class="loading-spinner" id="loadingIndicator" style="display:none;"></div>
+        <div class="result-container" id="resultContainer"></div>
+    </div>
+
+    <div class="chatbot-container">
+        <button class="chatbot-toggle" id="chatbotToggle">
+            <i class="fas fa-robot"></i>
+        </button>
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <h3>NIVASA AI Assistant</h3>
+                <div class="chatbot-header-controls">
+                     <button class="chatbot-clear" id="chatbotClear" title="Clear Chat">
+                        <i class="fas fa-eraser"></i>
+                    </button>
+                    <button class="chatbot-close" id="chatbotClose" title="Close Chat">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot">
+                    <div class="message-content">
+                        Hello! I'm your NIVASA AI assistant. How can I help you with your house planning needs today?
+                    </div>
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbotInput" placeholder="Type your message here..." />
+                <button id="chatbotSend"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Authentication elements
+        const authSection = document.getElementById('authSection');
+        const homeSection = document.getElementById('homeSection');
+        const loginBtn = document.getElementById('loginBtn');
+        const skipAuthBtn = document.getElementById('skipAuthBtn');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const userInfo = document.getElementById('userInfo');
+        
+        // House plan elements
+        const generateBtn = document.getElementById('generateBtn');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const resultContainer = document.getElementById('resultContainer');
+        
+        // Chatbot elements
+        const chatbotToggle = document.getElementById('chatbotToggle');
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        const chatbotClose = document.getElementById('chatbotClose');
+        const chatbotClear = document.getElementById('chatbotClear');
+        const chatbotMessages = document.getElementById('chatbotMessages');
+        const chatbotInput = document.getElementById('chatbotInput');
+        const chatbotSend = document.getElementById('chatbotSend');
+        
+        // Store authentication data
+        let authToken = sessionStorage.getItem('authToken');
+        let currentUser = JSON.parse(sessionStorage.getItem('currentUser') || 'null');
+        
+        // UPDATED: Correct available sizes matching your actual files
+        const AVAILABLE_SIZES = {
+            "1bhk": ["400", "500", "520", "560", "625", "760", "900", "1225", "1748"],
+            "2bhk": ["500", "700", "800", "1060", "1500"],
+            "3bhk": ["900", "1400", "1450", "1580", "1800"]
+        };
+
+        const INITIAL_BOT_MESSAGE = `<div class="message bot"><div class="message-content">Hello! I'm your NIVASA AI assistant. How can I help you with your house planning needs today?</div></div>`;
+
+        // Show error message
+        function showError(id, message) {
+            const el = document.getElementById(id);
+            el.style.display = 'block';
+            el.textContent = message;
+            setTimeout(() => {
+                el.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Show home page
+        function showHome(name, token = null, user = null) {
+            authSection.style.display = "none";
+            homeSection.style.display = "block";
+            userInfo.textContent = name;
+            
+            if (token) {
+                authToken = token;
+                sessionStorage.setItem('authToken', token);
+            }
+            
+            if (user) {
+                currentUser = user;
+                sessionStorage.setItem('currentUser', JSON.stringify(user));
+            } else {
+                authToken = null;
+                currentUser = null;
+                sessionStorage.removeItem('authToken');
+                sessionStorage.removeItem('currentUser');
+            }
+        }
+        
+        // Login function - creates account if it doesn't exist
+        loginBtn.onclick = async function() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            
+            if (!email) {
+                showError('loginEmailError', 'Email is required.');
+                return;
+            }
+            
+            if (!password) {
+                showError('loginPasswordError', 'Password is required.');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showHome(data.user.name, data.token, data.user);
+                } else {
+                    showError('loginEmailError', data.error || 'Login failed.');
+                }
+            } catch (error) {
+                showError('loginEmailError', 'Network error. Please try again.');
+            }
+        };
+        
+        // Skip authentication
+        skipAuthBtn.onclick = function() {
+            showHome('Guest User');
+        };
+        
+        // Logout function
+        logoutBtn.onclick = function() {
+            sessionStorage.removeItem('authToken');
+            sessionStorage.removeItem('currentUser');
+            authToken = null;
+            currentUser = null;
+            authSection.style.display = "block";
+            homeSection.style.display = "none";
+            
+            // Clear form fields
+            document.getElementById('loginEmail').value = '';
+            document.getElementById('loginPassword').value = '';
+        };
+        
+        // Generate house plan
+        generateBtn.onclick = async function() {
+            const sqft = document.getElementById('squareFootageInput').value;
+            const bhk = document.getElementById('bhkDropdown').value;
+            
+            resultContainer.innerHTML = '';
+            
+            if (!sqft || parseInt(sqft) < 400 || parseInt(sqft) > 3000) {
+                resultContainer.innerHTML = '<div class="error-message">Enter square footage between 400 and 3000.</div>';
+                return;
+            }
+            
+            loadingIndicator.style.display = 'block';
+            
+            try {
+                const response = await fetch('/api/get-plan', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        square_footage: parseInt(sqft),
+                        bedrooms: bhk
+                    })
+                });
+                
+                const data = await response.json();
+                loadingIndicator.style.display = 'none';
+                
+                if (response.ok && data.success) {
+                    if (data.exact_match) {
+                        resultContainer.innerHTML = `
+                            <h2>Perfect Match! Plan for ${sqft} sq ft, ${bhk} BHK</h2>
+                            <div class="plan-details">${data.description || ""}</div>
+                            <img class="plan-image" src="${data.image_url}" alt="${data.bhk} House Plan" />
+                            <div class="plan-features">
+                                <span class="plan-feature"><i class="fas fa-ruler-combined"></i> ${data.size} sq ft</span>
+                                <span class="plan-feature"><i class="fas fa-bed"></i> ${data.bhk.toUpperCase()}</span>
+                                <span class="plan-feature"><i class="fas fa-home"></i> Custom Design</span>
+                            </div>
+                            <div class="plan-actions">
+                                <a href="${data.direct_link}" class="plan-btn view-btn" target="_blank"><i class="fas fa-eye"></i> View Plan</a>
+                                <a href="${data.direct_link}" download class="plan-btn download-btn"><i class="fas fa-download"></i> Download Plan</a>
+                            </div>
+                        `;
+                    } else {
+                        // Handle both smaller and larger plan cases
+                        const planType = data.smaller_plan ? 'smaller' : 'larger';
+                        const planText = data.smaller_plan ? 
+                            `Showing Plan for ${data.size} sq ft (Closest smaller plan to your ${sqft} sq ft request)` :
+                            `Showing Plan for ${data.size} sq ft (Closest larger plan to your ${sqft} sq ft request)`;
+                            
+                        resultContainer.innerHTML = `
+                            <h2>${planText}</h2>
+                            <div class="plan-details">${data.description || ""}</div>
+                            <img class="plan-image" src="${data.image_url}" alt="${data.bhk} House Plan" />
+                            <div class="plan-features">
+                                <span class="plan-feature"><i class="fas fa-ruler-combined"></i> ${data.size} sq ft</span>
+                                <span class="plan-feature"><i class="fas fa-bed"></i> ${data.bhk.toUpperCase()}</span>
+                                <span class="plan-feature"><i class="fas fa-home"></i> Custom Design</span>
+                            </div>
+                            <div class="plan-actions">
+                                <a href="${data.direct_link}" class="plan-btn view-btn" target="_blank"><i class="fas fa-eye"></i> View Plan</a>
+                                <a href="${data.direct_link}" download class="plan-btn download-btn"><i class="fas fa-download"></i> Download Plan</a>
+                            </div>
+                            <div class="error-message" style="margin-top: 20px;">
+                                Note: No exact plan found for ${sqft} sq ft. Showing the closest available size.
+                            </div>
+                        `;
+                    }
+                } else {
+                    const bhkType = `${bhk}bhk`;
+                    const availableSizes = AVAILABLE_SIZES[bhkType] || [];
+                    const availableSizesList = availableSizes.map(size => `<li>${size} sq ft</li>`).join('');
+                    
+                    resultContainer.innerHTML = `
+                        <div class="error-message">
+                            ${data.error || 'No plan found for the specified square footage.'}
+                            <div style="margin-top: 10px;">
+                                Available sizes for ${bhk} BHK:
+                                <ul style="text-align: left; margin-top: 10px; padding-left: 20px;">
+                                    ${availableSizesList}
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                loadingIndicator.style.display = 'none';
+                resultContainer.innerHTML = '<div class="error-message">Network error. Please try again.</div>';
+            }
+        };
+        
+        // Chatbot functionality for full-screen
+        chatbotToggle.onclick = function() {
+            chatbotWindow.classList.add('open');
+            document.body.style.overflow = 'hidden'; // Lock background scroll
+        };
+        
+        chatbotClose.onclick = function() {
+            chatbotWindow.classList.remove('open');
+            document.body.style.overflow = ''; // Unlock background scroll
+        };
+
+        chatbotClear.onclick = async function() {
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'clear' })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    chatbotMessages.innerHTML = ''; // Clear visually
+                    addMessage(data.response, 'bot'); // Add the confirmation message
+                } else {
+                    addMessage('Could not clear chat. Please try again.', 'bot');
+                }
+            } catch (error) {
+                 addMessage('Network error. Could not clear chat.', 'bot');
+            }
+        };
+        
+        chatbotSend.onclick = sendChatbotMessage;
+        chatbotInput.onkeypress = function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                sendChatbotMessage();
+            }
+        };
+        
+        async function sendChatbotMessage() {
+            const message = chatbotInput.value.trim();
+            if (!message) return;
+            
+            addMessage(message, 'user');
+            chatbotInput.value = '';
+            
+            const typingIndicator = document.createElement('div');
+            typingIndicator.className = 'typing-indicator';
+            typingIndicator.innerHTML = `<span></span><span></span><span></span>`;
+            chatbotMessages.appendChild(typingIndicator);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: message })
+                });
+                
+                chatbotMessages.removeChild(typingIndicator);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    addMessage(data.response, 'bot');
+                } else {
+                    addMessage('Sorry, I encountered an error. Please try again.', 'bot');
+                }
+            } catch (error) {
+                if(chatbotMessages.contains(typingIndicator)) {
+                    chatbotMessages.removeChild(typingIndicator);
+                }
+                addMessage('Sorry, I\'m having trouble connecting right now. Please try again later.', 'bot');
+            }
+        }
+        
+        function addMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            contentDiv.textContent = text;
+            
+            messageDiv.appendChild(contentDiv);
+            chatbotMessages.appendChild(messageDiv);
+            
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+        
+        // Auto-show home page if already logged in
+        if (authToken && currentUser) {
+            showHome(currentUser.name, authToken, currentUser);
+        }
+    </script>
+</body>
+</html>
