@@ -1,5 +1,5 @@
 ## Title of the Project
-Square2Sanctuary: An Integrated Platform for AI-Powered House Plan Generation
+Square2Sanctuary : Your personalized House Plan Generator
 
 ## About
 <!--Detailed Description about the project-->
