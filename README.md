@@ -1,5 +1,5 @@
 ## Title of the Project
-Square2Sanctuary: An Integrated Platform for AI-Powered House Plan Generation and Secure Password Management
+Square2Sanctuary: An Integrated Platform for AI-Powered House Plan Generation
 
 ## About
 <!--Detailed Description about the project-->
